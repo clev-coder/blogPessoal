@@ -12,9 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.generation.blogpessoal.repository.UsuarioRepository;
 import com.generationblogpessoal.model.Usuario;
 import com.generationblogpessoal.model.UsuarioLogin;
+import com.generationblogpessoal.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
