@@ -30,7 +30,7 @@ public class TemaPostagem {
 	private List<Postagem> postagem;
 
 
-	public TemaPOstagem() { }
+	public TemaPostagem() { }
 	
 	public long getId() {
 		return id;
