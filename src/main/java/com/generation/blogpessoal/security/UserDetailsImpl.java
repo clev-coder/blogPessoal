@@ -1,28 +1,62 @@
 package com.generation.blogpessoal.security;
 
+import java.util.Collection;
+import java.util.List;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
-import com.generation.blogpessoal.repository.UsuarioRepository;
 import com.generationblogpessoal.model.Usuario;
 
-@Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsImpl implements UserDetails {
+	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private UsuarioRepository userRepository;
+	private String userName;
+	private String password;
+	private List<GrantedAuthority> authorities;
+
+	public UserDetailsImpl(Usuario usuario) {
+		this.userName = usuario.getUsuario();
+		this.password = usuario.getSenha();
+	}
+
+	public UserDetailsImpl() {
+	}
 
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		Optional<Usuario> usuario = userRepository.findByUsuario(userName);
-		usuario.orElseThrow(() -> new UsernameNotFoundException(userName + " not found."));
-		return usuario.map(UserDetailsImpl::new).get();
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public String getUsername() {
+
+		return userName;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 }
-
+	
